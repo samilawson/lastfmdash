@@ -5,6 +5,7 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import App from './App';
 import Genres from '../components/genres'
 import Decades from '../components/decades'
+import Recenttracks from '../components/recentTracks'
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -13,6 +14,7 @@ const routing = (
             <Route path="/" component={App} />
             <Route path="/genres" component={Genres} />
             <Route path="/decades" component={Decades} />
+            <Route path="/recentTracks" component={Recenttracks} />
         </div>
     </Router>
 )
