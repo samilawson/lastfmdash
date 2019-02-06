@@ -34,4 +34,5 @@ class RecentTracks extends React.Component {
     RecentTracks.propTypes = {
         recentTracks: PropTypes.array
       };
-    export default RecentTracks;
+
+export default RecentTracks;
