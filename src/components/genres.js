@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     fetchTotalPages
   } from '../actions/actioncreators';
+  import NavBar from './navbar';
 
 
 class Genres extends Component {
@@ -15,6 +16,8 @@ render(){
     
    return (
        <div>
+           <NavBar />
+           <div>Content</div>
            {this.state.totalPages}
        </div>
    )
