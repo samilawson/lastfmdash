@@ -1,43 +1,42 @@
-import React from 'react';
-import _map from 'lodash/map';
-import _isEqual from 'lodash/isEqual';
-import PropTypes from 'prop-types';
-import RecentTrack from './recentTrack';
-import NavBar from "./navbar";
-import {
-    fetchRecentTracks
-  } from '../actions/actioncreators';
+import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux'
 
-class RecentTracks extends React.Component {
-  shouldComponentUpdate(nextProps){
-    return !_isEqual(nextProps.recentTracks,this.props.recentTracks);
-  }
-    componentWillMount() {
-        fetchRecentTracks();
+import { getTracks } from '../store/actions'
+
+class RecentTracks extends Component {
+  
+    componentDidMount() {
+      const { getTracks } = this.props
+        getTracks();
         
       }
       render() {
 
         const {
-          recentTracks
+          auth, getTracks
         } = this.props;
     
-        const RecentTrackElement = _map(recentTracks, (recentTrack, i) => (
-          <RecentTrack
-            key={i}
-            recentTrack={recentTrack} />
-        ));
-    
+        const tracks = this.props.tracks.map(track =>
+          <li>{track.title}</li>)
+          
         return (
-        <div>
-          <NavBar />
-          {RecentTrackElement}
-        </div>
+        <Fragment>
+          {auth.isAuthenticated && (
+            <div>
+              <button onClick={getTracks}>Get RecentTracks</button>
+            </div>
+          )}
+          <ul>{tracks}</ul>
+        </Fragment>
         );
       }
     }
-    RecentTracks.propTypes = {
-        recentTracks: PropTypes.array
-      };
+    
 
-export default RecentTracks;
+export default connect(
+  store => ({
+    auth: store.auth,
+    tracks: store.tracks
+  }),
+  { getTracks}
+)(RecentTracks)
