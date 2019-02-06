@@ -18,7 +18,7 @@ render(){
        <div>
            <NavBar />
            <div>Content</div>
-           {this.state.totalPages}
+           
        </div>
    )
 }

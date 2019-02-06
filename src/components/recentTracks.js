@@ -1,13 +1,17 @@
 import React from 'react';
 import _map from 'lodash/map';
+import _isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
-import RecentTrack from './recentTrack.js';
-
+import RecentTrack from './recentTrack';
+import NavBar from "./navbar";
 import {
     fetchRecentTracks
   } from '../actions/actioncreators';
 
 class RecentTracks extends React.Component {
+  shouldComponentUpdate(nextProps){
+    return !_isEqual(nextProps.recentTracks,this.props.recentTracks);
+  }
     componentWillMount() {
         fetchRecentTracks();
         
@@ -26,6 +30,7 @@ class RecentTracks extends React.Component {
     
         return (
         <div>
+          <NavBar />
           {RecentTrackElement}
         </div>
         );
