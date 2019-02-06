@@ -1,70 +1,30 @@
-import React, { Component } from "react";
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem } from 'reactstrap';
-class NavBar extends Component {
-    constructor(props) {
-        super(props);
-    
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-          isOpen: false
-        };
-      }
-      toggle() {
-        this.setState({
-          isOpen: !this.state.isOpen
-        });
-      }
-      render() {
-        return (
-          <div>
-            <Navbar color="light" light expand="md">
-              <NavbarBrand href="/">lastfmdash</NavbarBrand>
-              <NavbarToggler onClick={this.toggle} />
-              <Collapse isOpen={this.state.isOpen} navbar>
-                <Nav className="ml-auto" navbar>
-                  <NavItem>
-                    <NavLink href="/user">Profile</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="/genres">Genres</NavLink>
-                  </NavItem>
-                  <NavItem>
-                      <NavLink href="/recentTracks">Recent Tracks</NavLink>
-                  </NavItem>
-                  <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
-                      Options
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>
-                        Option 1
-                      </DropdownItem>
-                      <DropdownItem>
-                        Option 2
-                      </DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem>
-                        Reset
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </Nav>
-              </Collapse>
-            </Navbar>
-          </div>
-        );
-      }
-}
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default NavBar;
+import { logout } from "../store/actions";
+
+const NavBar = ({ auth, logout }) => (
+  <div>
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/register">Register</Link>
+      </li>
+      <li>
+        <Link to="/login">Login</Link>
+      </li>
+      <li>
+        <Link to="/test">Test</Link>
+      </li>
+    </ul>
+    {auth.isAuthenticated && <p>Logged in as {auth.user.username}</p>}
+  </div>
+);
+
+export default connect(
+  store => ({ auth: store.auth }),
+  { logout }
+)(NavBar);
