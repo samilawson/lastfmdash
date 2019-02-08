@@ -1,58 +1,39 @@
 import React from "react";
-import styled from "styled-components";
-import moment from "moment";
-import { fetchUser } from "../actions/actioncreators";
-
-const UserLink = styled.a`
-  display: inline-block;
-  margin: 5px auto;
-  background-color: rgba(255, 255, 255, 1);
-`;
-
-const UserInfo = styled.ul`
-  margin: 0 auto;
-  padding: 1rem 0.7rem 0.7rem 0;
-  text-align: right;
-  color: darkGrey;
-`;
+import axios from "axios";
+import { constants } from "../constants/constants";
+const { baseURL, apiKey, userName } = constants;
 
 class User extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      data: []
-    }
+      user: []
+    };
   }
-  componentWillMount() {
-    fetchUser().then(response => {
-      console.log('Data fetched', response)
-      this.setState({
-        data: response
-      })
-    })
+  componentDidMount() {
+    let getUserInfo = axios.create({
+      baseURL,
+      url: `?method=user.getinfo&user=${userName}&api_key=${apiKey}&format=json`
+    });
+    getUserInfo().then(response => {
+      let data = response.data;
+      console.log(data.user.playcount); //logs second, displays correct
+      this.setState(state => ({
+        user: data
+      }));
+    });
   }
 
   render() {
-    
-
-    const registeredElement = moment
-      .unix(this.state.data.user.registered["#text"])
-      .format("MM/DD/YYYY");
-
-    return (
-      <UserLink href={this.state.data.user.url} target="_blank">
-        <div>
-          <img src={this.state.data.user.image["3"]["#text"]} alt={this.state.data.user.name} />
-        </div>
-        <UserInfo>
-          <li>{this.state.data.user.name}</li>
-          <li>{this.state.data.user.playcount}</li>
-          <li>{registeredElement}</li>
-        </UserInfo>
-      </UserLink>
-    );
+    console.log(this.state); //logs first and third, doesn't work of course on first but does on third
+    let toReturn;
+    if (this.state.user.length > 0) {
+      toReturn = <p>{this.state.user.user.playcount}</p>;
+    } else {
+      toReturn = <p>didn't work</p>;
+    }
+    return <div>{toReturn}</div>;
   }
 }
-
 
 export default User;

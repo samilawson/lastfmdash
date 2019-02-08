@@ -1,14 +1,30 @@
 
 import axios from 'axios';
 import {
-  apiConstants
-} from '../../../server/constants/constants';
+  constants
+} from '../constants/constants';
 const {
   baseURL,
   apiKey,
   userName
-} = apiConstants;
+} = constants;
 
+export default class API {
+  fetchUser = () => {
+    axios.get({
+      baseURL,
+      url: `?method=user.getinfo&user=${userName}&api_key=${apiKey}&format=json`
+    }).then((response) => {
+      if (response != null) {
+        var data = response.data
+        console.log(data.user.playcount)
+        return data
+      } else {
+        throw new Error('Empty data')
+      }      
+    })
+  }
+}/*
 export function fetchUser() {
     let getUserInfo = axios.create({
       baseURL,
@@ -25,7 +41,7 @@ export function fetchUser() {
       }      
     });
   }
-  /*
+  
   export function fetchRecentTracks(limit) {
     let getRecentTracks = axios.create({
       baseURL,
