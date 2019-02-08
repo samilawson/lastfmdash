@@ -10,7 +10,12 @@ var config = {
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'
-  }
+  },
+  test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
 };
 
 module.exports = config;

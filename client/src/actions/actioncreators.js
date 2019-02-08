@@ -1,10 +1,8 @@
-import dispatcher from '../dispatcher/dispatcher';
-import actionTypes from '../constants/actiontypes';
 
 import axios from 'axios';
 import {
   apiConstants
-} from '../constants/apiConstants';
+} from '../../../server/constants/constants';
 const {
   baseURL,
   apiKey,
@@ -27,7 +25,7 @@ export function fetchUser() {
       }      
     });
   }
-  
+  /*
   export function fetchRecentTracks(limit) {
     let getRecentTracks = axios.create({
       baseURL,
@@ -55,3 +53,4 @@ export function fetchTotalPages(limit) {
         })
     
     }    
+*/
