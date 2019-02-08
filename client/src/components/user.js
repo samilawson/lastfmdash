@@ -26,13 +26,9 @@ class User extends React.Component {
 
   render() {
     console.log(this.state); //logs first and third, doesn't work of course on first but does on third
-    let toReturn;
-    if (this.state.user.length > 0) {
-      toReturn = <p>{this.state.user.user.playcount}</p>;
-    } else {
-      toReturn = <p>didn't work</p>;
-    }
-    return <div>{toReturn}</div>;
+   return (<p>{this.state.user.length ? this.state.user.user.playcount : 'loading'}</p>)
+
+   
   }
 }
 
