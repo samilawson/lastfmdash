@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { fetchUser } from "../actions/actioncreators";
-import PropTypes from "prop-types";
 
 const UserLink = styled.a`
   display: inline-block;
@@ -18,27 +17,36 @@ const UserInfo = styled.ul`
 `;
 
 class User extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      data: []
+    }
+  }
   componentWillMount() {
-    fetchUser();
+    fetchUser().then(response => {
+      console.log('Data fetched', response)
+      this.setState({
+        data: response
+      })
+    })
   }
 
   render() {
-    const { user } = this.props;
-
-    const { image, name, playcount, registered, url } = user;
+    
 
     const registeredElement = moment
-      .unix(registered["#text"])
+      .unix(this.state.data.user.registered["#text"])
       .format("MM/DD/YYYY");
 
     return (
-      <UserLink href={url} target="_blank">
+      <UserLink href={this.state.data.user.url} target="_blank">
         <div>
-          <img src={image["3"]["#text"]} alt={name} />
+          <img src={this.state.data.user.image["3"]["#text"]} alt={this.state.data.user.name} />
         </div>
         <UserInfo>
-          <li>{name}</li>
-          <li>{playcount}</li>
+          <li>{this.state.data.user.name}</li>
+          <li>{this.state.data.user.playcount}</li>
           <li>{registeredElement}</li>
         </UserInfo>
       </UserLink>
@@ -46,8 +54,5 @@ class User extends React.Component {
   }
 }
 
-User.propTypes = {
-  user: PropTypes.object.isRequired
-};
 
 export default User;

@@ -18,11 +18,13 @@ export function fetchUser() {
     });
     getUserInfo()
     .then((response) => {
-      dispatcher.dispatch({
-        type: actionTypes.userRetrieved,
-        user: response.data.user
-      });
-      console.log(response.data.user.playcount)
+      if (response.status === 200 && response != null) {
+        var data = response.data
+        console.log(data.user.playcount)
+        return data
+      } else {
+        throw new Error('Empty data')
+      }      
     });
   }
   
