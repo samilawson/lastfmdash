@@ -1,12 +1,12 @@
 {
     "name": "lastfmdash",
     "version": "1.0.0",
-    "description": "",
+    "description": "A lastfm dashboard",
     "main": "index.js",
     "scripts": {
       "start": "nodemon"
     },
-    "author": "Sam",
+    "author": "Sam Lawson",
     "license": "ISC",
     "devDependencies": {
       "nodemon": "^1.18.8"
