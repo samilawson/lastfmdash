@@ -14,7 +14,7 @@ const UserInfo = styled.ul`
   margin: 0 auto;
   padding: 1rem 0.7rem 0.7rem 0;
   text-align: right;
-  color: darkGrey;
+  color: black;
 `;
 
 class User extends React.Component {
@@ -50,7 +50,7 @@ class User extends React.Component {
       </div>
       <UserInfo>
         <li>{this.state.user.name}</li>
-        <li>{this.state.user.playcount}</li>
+        <li>Scobbles: {this.state.user.playcount}</li>
       </UserInfo>
       </UserLink> )
     } else {
