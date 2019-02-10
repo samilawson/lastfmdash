@@ -45,7 +45,7 @@ componentDidMount() {
                     })
                 })
 
-            let frequency = {}
+            let frequency = []
             for(let i = 0; i < genres.length; i++) {
                 frequency[genres[i]] = (frequency[genres[i]] || 0) + 1
             }
@@ -61,7 +61,7 @@ componentDidMount() {
 render(){
     
    if(this.state.genres){
-       return <p>it worked</p>
+       return <p>{this.state.genres[0]}</p>
    } else {
        return <p>No data</p>
    }
